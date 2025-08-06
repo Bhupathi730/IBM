@@ -1,4 +1,4 @@
-import { Entity, Pattern, Recommendation, RiskTrend, Alert } from '../types';
+import { Entity, Pattern, Recommendation, RiskTrend, Alert, RiskRule } from '../types';
 
 export const mockEntities: Entity[] = [
   {
@@ -180,5 +180,53 @@ export const mockAlerts: Alert[] = [
     message: 'Multiple failed authentication attempts on CRM-Application',
     timestamp: '2025-01-27T10:15:00Z',
     acknowledged: true
+  }
+];
+
+export const mockRiskRules: RiskRule[] = [
+  {
+    id: 'RR001',
+    name: 'Failed Login Attempts',
+    description: 'Detects multiple failed authentication attempts',
+    weight: 8,
+    threshold: 5,
+    enabled: true,
+    category: 'authentication'
+  },
+  {
+    id: 'RR002',
+    name: 'Off-Hours Access',
+    description: 'Monitors access attempts outside business hours',
+    weight: 6,
+    threshold: 3,
+    enabled: true,
+    category: 'behavior'
+  },
+  {
+    id: 'RR003',
+    name: 'Privilege Escalation',
+    description: 'Detects attempts to gain elevated privileges',
+    weight: 10,
+    threshold: 1,
+    enabled: true,
+    category: 'access'
+  },
+  {
+    id: 'RR004',
+    name: 'Unusual Data Transfer',
+    description: 'Monitors large or unusual data transfers',
+    weight: 7,
+    threshold: 10,
+    enabled: true,
+    category: 'network'
+  },
+  {
+    id: 'RR005',
+    name: 'Suspicious File Access',
+    description: 'Detects access to sensitive files',
+    weight: 9,
+    threshold: 2,
+    enabled: false,
+    category: 'access'
   }
 ];

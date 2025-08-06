@@ -1,13 +1,21 @@
 import React from 'react';
-import { AlertTriangle, Clock, Target, Zap, CheckCircle2, X } from 'lucide-react';
+import { AlertTriangle, Clock, Target, Zap, CheckCircle2, X, Plus, Settings } from 'lucide-react';
 import { Entity } from '../types';
+import RiskScoreAdjuster from './RiskScoreAdjuster';
 
 interface EntityDetailsProps {
   entity: Entity;
   onClose: () => void;
+  onAddPattern: (entityId: string) => void;
+  onScoreUpdate: (entityId: string, newScore: number, reason: string) => void;
 }
 
-const EntityDetails: React.FC<EntityDetailsProps> = ({ entity, onClose }) => {
+const EntityDetails: React.FC<EntityDetailsProps> = ({ 
+  entity, 
+  onClose, 
+  onAddPattern, 
+  onScoreUpdate 
+}) => {
   const getSeverityColor = (severity: number) => {
     if (severity >= 8) return 'text-red-400 bg-red-400/10';
     if (severity >= 6) return 'text-orange-400 bg-orange-400/10';
@@ -54,7 +62,16 @@ const EntityDetails: React.FC<EntityDetailsProps> = ({ entity, onClose }) => {
       <div className="p-6 space-y-6">
         {/* Risk Score */}
         <div className="bg-slate-900 rounded-lg p-4">
-          <h3 className="text-lg font-medium text-white mb-2">Current Risk Score</h3>
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-medium text-white">Current Risk Score</h3>
+            <button
+              onClick={() => onAddPattern(entity.id)}
+              className="px-3 py-1 bg-orange-500 hover:bg-orange-600 text-white text-sm rounded-lg transition-colors flex items-center"
+            >
+              <Plus className="h-4 w-4 mr-1" />
+              Add Pattern
+            </button>
+          </div>
           <div className="flex items-center space-x-4">
             <div className="text-3xl font-bold text-red-400">{entity.riskScore}</div>
             <div className="flex-1">
@@ -70,6 +87,15 @@ const EntityDetails: React.FC<EntityDetailsProps> = ({ entity, onClose }) => {
                 <span>50</span>
               </div>
             </div>
+          </div>
+          
+          <div className="mt-4">
+            <RiskScoreAdjuster
+              entityId={entity.id}
+              entityName={entity.name}
+              currentScore={entity.riskScore}
+              onScoreUpdate={onScoreUpdate}
+            />
           </div>
         </div>
 

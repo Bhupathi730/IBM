@@ -45,3 +45,28 @@ export interface Alert {
   timestamp: string;
   acknowledged: boolean;
 }
+
+export interface RiskRule {
+  id: string;
+  name: string;
+  description: string;
+  weight: number;
+  threshold: number;
+  enabled: boolean;
+  category: 'access' | 'behavior' | 'network' | 'authentication';
+}
+
+export interface EntityFormData {
+  name: string;
+  type: 'user' | 'device' | 'application';
+  department: string;
+  initialRiskScore?: number;
+}
+
+export interface PatternFormData {
+  name: string;
+  description: string;
+  severity: number;
+  category: 'access' | 'behavior' | 'network' | 'authentication';
+  threshold: number;
+}

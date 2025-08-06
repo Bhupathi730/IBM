@@ -1,12 +1,13 @@
 import React from 'react';
-import { Shield, Bell, Search, Settings } from 'lucide-react';
+import { Shield, Bell, Search, Settings, Plus } from 'lucide-react';
 
 interface HeaderProps {
   unacknowledgedAlerts: number;
   onSearchChange: (query: string) => void;
+  onAddEntity: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ unacknowledgedAlerts, onSearchChange }) => {
+const Header: React.FC<HeaderProps> = ({ unacknowledgedAlerts, onSearchChange, onAddEntity }) => {
   return (
     <header className="bg-slate-900 border-b border-slate-700 px-6 py-4">
       <div className="flex items-center justify-between">
@@ -30,6 +31,14 @@ const Header: React.FC<HeaderProps> = ({ unacknowledgedAlerts, onSearchChange })
               onChange={(e) => onSearchChange(e.target.value)}
             />
           </div>
+          
+          <button
+            onClick={onAddEntity}
+            className="px-3 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors flex items-center text-sm"
+          >
+            <Plus className="h-4 w-4 mr-1" />
+            Add Entity
+          </button>
           
           <div className="relative">
             <Bell className="h-6 w-6 text-slate-400 hover:text-white cursor-pointer transition-colors" />
